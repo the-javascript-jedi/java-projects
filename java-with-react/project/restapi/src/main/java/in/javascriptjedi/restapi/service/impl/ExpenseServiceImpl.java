@@ -5,6 +5,7 @@ import in.javascriptjedi.restapi.entity.ExpenseEntity;
 import in.javascriptjedi.restapi.repository.ExpenseRepository;
 import in.javascriptjedi.restapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
  * */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ExpenseServiceImpl implements ExpenseService {
 
 //    inject dependencies
@@ -30,6 +32,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         // return List.of();
         // Step 1: Call the repository method
         List<ExpenseEntity> list =expenseRepository.findAll();
+        log.info("Printing the data from repository {}",list);
         // Step 2: Convert the Entity object to DTO object
         List<ExpenseDTO> listOfExpenses = list.stream().map(expenseEntity -> mapToExpenseDTO(expenseEntity)).collect(Collectors.toList());
         // Step 3: Return the list
