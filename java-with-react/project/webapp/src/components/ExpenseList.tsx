@@ -1,33 +1,11 @@
 import React from 'react'
 import type { Expense } from '../model/Expense';
 
-const ExpenseList = () => {
-  const expenses:Expense[] = [
-    {
-      id: 1,
-      name: "Water Bill",
-      amount: 200.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-    {
-      id: 2,
-      name: "Electricity bill",
-      amount: 500.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-    {
-      id: 3,
-      name: "Wifi Bill",
-      amount: 700.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-  ];
+interface Props{
+    expenses:Expense[];
+}
+const ExpenseList = ({expenses}:Props) => {
+  
   return <div>
     <table border={1}>
       <thead>
