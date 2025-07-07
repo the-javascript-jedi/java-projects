@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ExpenseList from "../../components/ExpenseList";
 import type { Expense } from "../../model/Expense";
 import apiClient from "../../config/api-client";
+import { getExpenses } from "../../services/expense-service";
 
 
 const Dashboard = () => {
@@ -15,7 +16,7 @@ const Dashboard = () => {
   useEffect(()=>{
     setLoader(true);
     // api call to backend
-    apiClient.get('/expenses').then((response) => {
+   getExpenses().then((response) => {
       console.log(response.data);
       setExpenses(response.data);
     }).catch((error) => {
