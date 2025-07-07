@@ -1,34 +1,43 @@
+import { useEffect, useState } from "react";
 import ExpenseList from "../../components/ExpenseList";
 import type { Expense } from "../../model/Expense";
+import apiClient from "../../config/api-client";
+
 
 const Dashboard = () => {
-  const expenses:Expense[] = [
-    {
-      id: 1,
-      name: "Water Bill",
-      amount: 200.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-    {
-      id: 2,
-      name: "Electricity bill",
-      amount: 500.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-    {
-      id: 3,
-      name: "Wifi Bill",
-      amount: 700.0,
-      date: new Date().toDateString(),
-      category: "Utilities",
-      note: "Monthly water bill",
-    },
-  ];
- return <ExpenseList expenses={expenses}/>
+  // state
+  const [expenses,setExpenses] = useState<Expense[]>([]);
+  const [error,setErrors] = useState(null);
+  const [isLoading,setLoader] = useState(false);
+
+
+  // make api calls
+  useEffect(()=>{
+    setLoader(true);
+    // api call to backend
+    apiClient.get('/expenses').then((response) => {
+      console.log(response.data);
+      setExpenses(response.data);
+    }).catch((error) => {
+      console.error("Error fetching expenses:", error);
+      setErrors(error.message);
+    }).finally(()=>{
+      setLoader(false);
+    });
+  }, []);
+
+
+  
+ return (
+<div>
+  {isLoading && <p>Loading...</p>}
+  {error && <p>
+    {error}
+    </p>}
+  <ExpenseList expenses={expenses}/>
+</div>
+
+ )
 };
 
 export default Dashboard;

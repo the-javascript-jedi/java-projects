@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Expense } from '../model/Expense';
 
 interface Props{
@@ -18,7 +17,7 @@ const ExpenseList = ({expenses}:Props) => {
       <tbody>
         {
           expenses.map((expense) => (
-            <tr key={expense.id}>
+            <tr key={expense.expenseId}>
               <td>{expense.name}</td>
               <td>{expense.amount}</td>
               <td>{expense.date}</td>
