@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   
  return (
-<div>
+<div className="container mt-5">
   {isLoading && <p>Loading...</p>}
   {error && <p>
     {error}
