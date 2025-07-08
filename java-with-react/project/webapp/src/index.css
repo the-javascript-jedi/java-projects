@@ -11,3 +11,15 @@ body,html{
 .app-primary-bg-color{
     background-color: #79589f;
 }
+
+.card-body{
+    padding: 0;
+}
+
+.border-bottom-1{
+    border-bottom: 1px solid lightgrey;
+}
+
+.card-subtitle{
+    margin-top: 1rem;
+}

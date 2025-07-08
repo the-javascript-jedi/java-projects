@@ -12,25 +12,25 @@ const ExpenseList = ({expenses}:Props) => {
         Amount
       </span>
     </div>
-    <div className="card-body">
+    {expenses.map(expense=>  <div className="card-body">
       <div>
         <div className="d-flex justify-content-between border-bottom-1 p3 text-dark">
           <div className="card-title m-0">
             <h5>
-              Water Bill
+             {expense.name}
             </h5>
             <span className="fst-italic">
-      {new Date().toString()}
+      {expense.date.toString()}
             </span>
           </div>
           <div className="card-subtitle">
             <span className="badge rounded-pill app-primary-bg-color">
-              $500
+             {expense.amount}
             </span>
           </div>
         </div>
       </div>
-    </div>
+    </div>)}
   </div>
   // <div>
   //   <table border={1}>
