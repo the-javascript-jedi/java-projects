@@ -8,7 +8,7 @@ body,html{
     background-color: #79589f;
 }
 
-.app-primary-bg-color{
+nav, .app-primary-bg-color{
     background-color: #79589f;
 }
 
@@ -22,4 +22,9 @@ body,html{
 
 .card-subtitle{
     margin-top: 1rem;
+}
+
+.navbar-nav .nav-link, .navbar-toggler{
+    color: white;
+    border-color: white;
 }
