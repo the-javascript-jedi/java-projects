@@ -13,7 +13,7 @@ const ExpenseList = ({expenses}:Props) => {
       </span>
     </div>
     {expenses.map(expense=>  <div className="card-body">
-      <div>
+      <div key={expense.expenseId} className="card mb-3">
         <div className="d-flex justify-content-between border-bottom-1 p3 text-dark">
           <div className="card-title m-0">
             <h5>
