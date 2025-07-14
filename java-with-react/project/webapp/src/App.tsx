@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Login from "./pages/login/Login";
 import NewExpense from "./pages/expense/NewExpense";
-import Register from "./pages/register/register";
+import Register from "./pages/register/Register";
 import ExpenseDetails from "./pages/expense/ExpenseDetails";
 import ExpenseReports from "./pages/expense/ExpenseReports";
 

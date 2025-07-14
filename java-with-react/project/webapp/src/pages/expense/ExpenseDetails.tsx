@@ -1,7 +1,7 @@
 const ExpenseDetails = () => {
   return (
     <div>
-      
+      ExpenseDetails
     </div>
   )
 }
