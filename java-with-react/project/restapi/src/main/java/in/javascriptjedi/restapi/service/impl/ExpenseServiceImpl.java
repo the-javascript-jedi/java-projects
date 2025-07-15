@@ -2,6 +2,7 @@ package in.javascriptjedi.restapi.service.impl;
 
 import in.javascriptjedi.restapi.dto.ExpenseDTO;
 import in.javascriptjedi.restapi.entity.ExpenseEntity;
+import in.javascriptjedi.restapi.exceptions.ResourceNotFoundException;
 import in.javascriptjedi.restapi.repository.ExpenseRepository;
 import in.javascriptjedi.restapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,16 @@ public class ExpenseServiceImpl implements ExpenseService {
         List<ExpenseDTO> listOfExpenses = list.stream().map(expenseEntity -> mapToExpenseDTO(expenseEntity)).collect(Collectors.toList());
         // Step 3: Return the list
         return listOfExpenses;
+    }
+
+    @Override
+    public ExpenseDTO getExpenseByExpenseId(String expenseId) {
+        ExpenseEntity optionalExpense = expenseRepository.findByExpenseId(expenseId).orElseThrow(
+//                run time exception
+//                ()->new RuntimeException("Expense not found for the expense id"+expenseId));
+//                custom exception
+                ()->new ResourceNotFoundException("Expense not found for the expense id"+expenseId));
+        return mapToExpenseDTO(optionalExpense);
     }
 
     /**
