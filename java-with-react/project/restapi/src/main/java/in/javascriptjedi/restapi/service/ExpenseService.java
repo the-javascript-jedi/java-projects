@@ -12,4 +12,6 @@ public interface ExpenseService {
      * @return list
      * */
     List<ExpenseDTO> getAllExpenses();
+
+    ExpenseDTO getExpenseByExpenseId(String expenseId);
 }
