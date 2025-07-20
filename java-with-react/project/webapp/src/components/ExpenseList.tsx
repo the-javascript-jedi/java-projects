@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { Expense } from "../model/Expense";
 import CurrencyUtils from "../utils/CurrencyUtils";
 import DateUtils from "../utils/DateUtils";
@@ -13,7 +14,12 @@ const ExpenseList = ({ expenses }: Props) => {
         <span className="float-end">Amount</span>
       </div>
       {expenses.map((expense) => (
-        <div className="card-body">
+        <Link
+          className="card-body"
+          to={`/view/${expense.expenseId}`}
+          key={expense.expenseId}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div key={expense.expenseId} className="card mb-3">
             <div className="d-flex justify-content-between border-bottom-1 p-3 text-dark">
               <div className="card-title m-0">
@@ -29,7 +35,7 @@ const ExpenseList = ({ expenses }: Props) => {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
