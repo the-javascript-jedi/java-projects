@@ -42,13 +42,21 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseDTO getExpenseByExpenseId(String expenseId) {
-        ExpenseEntity expenseEntity = expenseRepository.findByExpenseId(expenseId).orElseThrow(
-//                run time exception
-//                ()->new RuntimeException("Expense not found for the expense id"+expenseId));
-//                custom exception
-                ()->new ResourceNotFoundException("Expense not found for the expense id"+expenseId));
+        ExpenseEntity expenseEntity = getExpenseEntity(expenseId);
        log.info("Printing the expense entity details {}",expenseEntity);
         return mapToExpenseDTO(expenseEntity);
+    }
+
+    /**
+     * It will delete the single expense details from database
+     * @param expenseId
+     * @return void
+     * */
+    @Override
+    public void deleteExpenseByExpenseId(String expenseId) {
+    ExpenseEntity expenseEntity=getExpenseEntity(expenseId);
+    log.info("Printing the expense entity {}",expenseEntity);
+    expenseRepository.delete(expenseEntity);
     }
 
     /**
@@ -58,5 +66,19 @@ public class ExpenseServiceImpl implements ExpenseService {
      * */
     private ExpenseDTO mapToExpenseDTO(ExpenseEntity expenseEntity) {
        return modelMapper.map(expenseEntity,ExpenseDTO.class);
+    }
+
+
+    /**
+     * Fetch the expense by expense id from db
+     * @param expenseId
+     * @return ExpenseEntity
+     * */
+    private ExpenseEntity getExpenseEntity(String expenseId) {
+        return expenseRepository.findByExpenseId(expenseId).orElseThrow(
+//                run time exception
+//                ()->new RuntimeException("Expense not found for the expense id"+expenseId));
+//                custom exception
+                () -> new ResourceNotFoundException("Expense not found for the expense id" + expenseId));
     }
 }

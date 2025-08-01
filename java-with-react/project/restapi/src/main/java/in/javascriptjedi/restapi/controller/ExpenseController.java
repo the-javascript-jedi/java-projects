@@ -5,10 +5,8 @@ import in.javascriptjedi.restapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,9 +60,19 @@ public class ExpenseController {
     }
 
     /**
+     * It will delete the expenses from database
+     * @return list
+     * */
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/expenses/{expenseId}")
+    public void deleteExpenseByExpenseId(@PathVariable String expenseId){
+        log.info("API Delete /expenses/{} called",expenseId);
+        expenseService.deleteExpenseByExpenseId(expenseId);
+    }
+    /**
      * Mapper method for converting dto object to expense response
      * @param expenseDTO
-     * @return ExpenseResponse
+     * @return void
      * */
     private ExpenseResponse mapToExpenseResponse(ExpenseDTO expenseDTO){
        return modelMapper.map(expenseDTO, ExpenseResponse.class);
