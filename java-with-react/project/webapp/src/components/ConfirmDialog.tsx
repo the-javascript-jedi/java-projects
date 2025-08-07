@@ -1,9 +1,17 @@
 interface ConfirmDialogProps {
+  show: boolean;
   title: string;
   message: string;
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ title, message }) => {
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
+  show,
+  title,
+  message,
+}) => {
+  if (!show) {
+    return null;
+  }
   return (
     <div
       className="modal show d-block"

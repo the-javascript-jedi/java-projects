@@ -5,34 +5,19 @@ import { useEffect, useState } from "react";
 import { getExpenseByExpenseId } from "../../services/expense-service";
 import type { Expense } from "../../model/Expense";
 import useExpenseByExpenseId from "../../hooks/useExpenseByExpenseId";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const ExpenseDetails = () => {
   const { expenseId } = useParams<{ expenseId: string }>();
-  const { expense, error, isLoading } = useExpenseByExpenseId(expenseId ?? ""); // Custom hook to fetch expense details
+  const { expense, error, isLoading } = useExpenseByExpenseId(expenseId ?? "");
+  // Custom hook to fetch expense details
+  const [showDialog, setShowDialog] = useState<boolean>(false);
 
   // const [expense, setExpense] = useState<Expense | undefined>();
   // const [error, setError] = useState<string | null>("");
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   console.log("Expense ID:", expenseId);
 
-  // useEffect(() => {
-  //   if (expenseId !== undefined) {
-  //     setIsLoading(true); // Set loading state to true
-  //     setError(null); // Reset error state
-  //     console.log("expenseId", expenseId);
-  //     getExpenseByExpenseId(expenseId)
-  //       .then((response) => {
-  //         setExpense(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching expense details:", error);
-  //         setError(error.message || "Failed to fetch expense details");
-  //       })
-  //       .finally(() => {
-  //         setIsLoading(false);
-  //       });
-  //   }
-  // }, []);
   return (
     <div className="container mt-2">
       {isLoading && <p>Loading...</p>}
@@ -85,6 +70,11 @@ const ExpenseDetails = () => {
           </div>
         </div>
       </div>
+      <ConfirmDialog
+        title="Confirm Delete"
+        message="Are you sure you want to delete this item?"
+        show={showDialog}
+      />
     </div>
   );
 };
