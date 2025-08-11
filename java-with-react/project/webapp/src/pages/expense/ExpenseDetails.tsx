@@ -13,6 +13,14 @@ const ExpenseDetails = () => {
   // Custom hook to fetch expense details
   const [showDialog, setShowDialog] = useState<boolean>(false);
 
+  const handleCancel = () => {
+    console.log("handleCancel clicked");
+    setShowDialog(false);
+  };
+  const handleConfirm = () => {
+    console.log("handleConfirm clicked");
+    setShowDialog(false);
+  };
   // const [expense, setExpense] = useState<Expense | undefined>();
   // const [error, setError] = useState<string | null>("");
   // const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,7 +34,12 @@ const ExpenseDetails = () => {
       {/* api  */}
       <div className="mb-2">
         <div className="d-flex flex-row-reverse mb-2">
-          <button className="btn btn-sm btn-danger">Delete</button>
+          <button
+            className="btn btn-sm btn-danger"
+            onClick={() => setShowDialog(true)}
+          >
+            Delete
+          </button>
           <button className="btn btn-sm btn-warning mx-2">Edit</button>
           <button className="btn btn-sm btn-secondary">Back</button>
         </div>
@@ -74,6 +87,8 @@ const ExpenseDetails = () => {
         title="Confirm Delete"
         message="Are you sure you want to delete this item?"
         show={showDialog}
+        onCancel={handleCancel}
+        onConfirm={handleConfirm}
       />
     </div>
   );
