@@ -1,17 +1,23 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CurrencyUtils from "../../utils/CurrencyUtils";
 import DateUtils from "../../utils/DateUtils";
 import { useEffect, useState } from "react";
-import { getExpenseByExpenseId } from "../../services/expense-service";
+import {
+  deleteExpenseByExpenseId,
+  getExpenseByExpenseId,
+} from "../../services/expense-service";
 import type { Expense } from "../../model/Expense";
 import useExpenseByExpenseId from "../../hooks/useExpenseByExpenseId";
 import ConfirmDialog from "../../components/ConfirmDialog";
 
 const ExpenseDetails = () => {
-  const { expenseId } = useParams<{ expenseId: string }>();
-  const { expense, error, isLoading } = useExpenseByExpenseId(expenseId ?? "");
+  // for debugging it is let
+  let { expenseId } = useParams<{ expenseId: string }>();
+  const { expense, error, isLoading, setIsLoading, setError } =
+    useExpenseByExpenseId(expenseId ?? "");
   // Custom hook to fetch expense details
   const [showDialog, setShowDialog] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleCancel = () => {
     console.log("handleCancel clicked");
@@ -19,6 +25,27 @@ const ExpenseDetails = () => {
   };
   const handleConfirm = () => {
     console.log("handleConfirm clicked");
+    if (!expenseId) {
+      console.error("Expense ID is missing");
+      return;
+    }
+    setIsLoading(true);
+    deleteExpenseByExpenseId(expenseId)
+      .then((response) => {
+        console.log("response", response);
+        if (response && response.status === 204) {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setError(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setShowDialog(false);
+      });
+
     setShowDialog(false);
   };
   // const [expense, setExpense] = useState<Expense | undefined>();
