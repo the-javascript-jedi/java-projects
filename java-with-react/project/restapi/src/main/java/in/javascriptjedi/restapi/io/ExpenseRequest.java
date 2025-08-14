@@ -1,6 +1,7 @@
 package in.javascriptjedi.restapi.io;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,17 +17,18 @@ import java.sql.Date;
 @Builder
 public class ExpenseRequest {
 
-    @NotEmpty
+    @NotBlank(message = "Expense name is required")
+    @Size(min=3,message="Expense name should be atleast 3 characters")
     private String name;
 
     private String note;
 
-    @NotBlank
+    @NotBlank(message="Expense category is required")
     private String category;
 
-    @NotNull
+    @NotNull(message="Expense date is required")
     private Date date;
-    @NotNull
+    @NotNull(message="Expense amount is required")
     private BigDecimal amount;
 }
 
