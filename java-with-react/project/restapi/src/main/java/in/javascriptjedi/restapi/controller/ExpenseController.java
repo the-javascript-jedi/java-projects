@@ -1,5 +1,6 @@
 package in.javascriptjedi.restapi.controller;
 import in.javascriptjedi.restapi.dto.ExpenseDTO;
+import in.javascriptjedi.restapi.io.ExpenseRequest;
 import in.javascriptjedi.restapi.io.ExpenseResponse;
 import in.javascriptjedi.restapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,15 @@ public class ExpenseController {
         log.info("API Delete /expenses/{} called",expenseId);
         expenseService.deleteExpenseByExpenseId(expenseId);
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/expenses")
+    public ExpenseRequest saveExpenseDetails(@Valid @RequestBody ExpenseRequest expenseRequest){
+        log.info("API POST /expenses called{}",expenseRequest);
+        return expenseRequest;
+    }
+
+
     /**
      * Mapper method for converting dto object to expense response
      * @param expenseDTO
