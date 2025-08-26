@@ -3,6 +3,7 @@ package in.javascriptjedi.restapi.service.impl;
 import in.javascriptjedi.restapi.dto.ExpenseDTO;
 import in.javascriptjedi.restapi.entity.ExpenseEntity;
 import in.javascriptjedi.restapi.exceptions.ResourceNotFoundException;
+import in.javascriptjedi.restapi.io.ExpenseResponse;
 import in.javascriptjedi.restapi.repository.ExpenseRepository;
 import in.javascriptjedi.restapi.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.UUID;
 
 /**
  * Service implementation for Expense module
@@ -57,6 +59,19 @@ public class ExpenseServiceImpl implements ExpenseService {
     ExpenseEntity expenseEntity=getExpenseEntity(expenseId);
     log.info("Printing the expense entity {}",expenseEntity);
     expenseRepository.delete(expenseEntity);
+    }
+
+    @Override
+    public ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDTO) {
+       ExpenseEntity newExpenseEntity=mapToExpenseEntity(expenseDTO);
+       newExpenseEntity.setExpenseId(UUID.randomUUID().toString());
+       newExpenseEntity=expenseRepository.save(newExpenseEntity);
+       return mapToExpenseDTO(newExpenseEntity);
+
+    }
+
+    private ExpenseEntity mapToExpenseEntity(ExpenseDTO expenseDTO) {
+        return modelMapper.map(expenseDTO,ExpenseEntity.class);
     }
 
     /**
