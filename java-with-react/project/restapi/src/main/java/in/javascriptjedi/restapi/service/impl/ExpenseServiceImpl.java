@@ -60,16 +60,25 @@ public class ExpenseServiceImpl implements ExpenseService {
     log.info("Printing the expense entity {}",expenseEntity);
     expenseRepository.delete(expenseEntity);
     }
-
+    /**
+     *It will save expense details to db
+     * @param expenseDTO
+     * @return expenseDTO
+     * */
     @Override
     public ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDTO) {
        ExpenseEntity newExpenseEntity=mapToExpenseEntity(expenseDTO);
        newExpenseEntity.setExpenseId(UUID.randomUUID().toString());
        newExpenseEntity=expenseRepository.save(newExpenseEntity);
+       log.info("Printing the expense entity details {}",newExpenseEntity);
        return mapToExpenseDTO(newExpenseEntity);
 
     }
-
+    /**
+     *Mapper method to map values from Expense DTO to expense entity
+     * @param expenseDTO
+     * @return ExpenseEntity
+     * */
     private ExpenseEntity mapToExpenseEntity(ExpenseDTO expenseDTO) {
         return modelMapper.map(expenseDTO,ExpenseEntity.class);
     }
