@@ -2,9 +2,13 @@ import { useFormik } from "formik";
 import type { Expense } from "../../model/Expense";
 import expenseValidatationSchema from "../../validations/expenseValidationSchema";
 import Dropdown from "../../components/Dropdown";
+import { expenseCategories } from "../../utils/AppConstants";
+import { saveOrUpdateExpense } from "../../services/expense-service";
+import { useState } from "react";
 expenseValidatationSchema;
 
 const NewExpense = () => {
+  const [error, setErrors] = useState<string>("");
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -15,11 +19,18 @@ const NewExpense = () => {
     },
     onSubmit: (values: Expense) => {
       console.log("values", values);
+      saveOrUpdateExpense(values)
+        .then((response) => console.log(response))
+        .catch((error) => {
+          console.log("error", error);
+          setErrors(error.message);
+        });
     },
     validationSchema: expenseValidatationSchema,
   });
   return (
     <div className="d-flex justify-content-center align-items-center mt-2">
+      {error && <p>{error}</p>}
       <div className="container col-md-4 col-sm-8 col-xs-12">
         <form onSubmit={formik.handleSubmit}>
           <div className="mb-3">
@@ -88,7 +99,17 @@ const NewExpense = () => {
               <div className="text-danger fst-italic">{formik.errors.date}</div>
             ) : null}
           </div>
-          <Dropdown />
+          <Dropdown
+            options={expenseCategories}
+            id="category"
+            name="category"
+            label="category"
+            value={formik.values.category}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.errors.category}
+            touched={formik.touched.category}
+          />
           <button
             className="btn btn-sm btn-primary btn-outline-light"
             type="submit"
