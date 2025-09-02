@@ -28,4 +28,12 @@ public interface ExpenseService {
     void deleteExpenseByExpenseId(String expenseId);
 
     ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDTO);
+
+    /**
+     * It will update the single expense details from database
+     * @param expenseDTO
+     * @param expenseId     *
+     * @return ExpenseDTO
+     * */
+    ExpenseDTO updateExpenseDetails(ExpenseDTO expenseDTO, String expenseId);
 }
