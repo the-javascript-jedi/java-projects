@@ -17,6 +17,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/new" element={<NewExpense />} />
         <Route path="/view/:expenseId" element={<ExpenseDetails />} />
+        <Route path="/edit/:expenseId" element={<NewExpense />} />
         <Route path="/reports" element={<ExpenseReports />} />
       </Routes>
     </BrowserRouter>

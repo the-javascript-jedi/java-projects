@@ -71,11 +71,28 @@ public class ExpenseController {
         expenseService.deleteExpenseByExpenseId(expenseId);
     }
 
+    /**
+     * It will save the expense details to database
+     * @param expenseRequest
+     * @return ExpenseResponse
+     * */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/expenses")
-    public ExpenseRequest saveExpenseDetails(@Valid @RequestBody ExpenseRequest expenseRequest){
+    public ExpenseResponse saveExpenseDetails(@Valid @RequestBody ExpenseRequest expenseRequest){
         log.info("API POST /expenses called{}",expenseRequest);
-        return expenseRequest;
+        ExpenseDTO expenseDTO=mapToExpenseDTO(expenseRequest);
+        expenseDTO=expenseService.saveExpenseDetails(expenseDTO);
+        log.info("Printing the expense dto {}",expenseDTO);
+        return mapToExpenseResponse(expenseDTO);
+    }
+
+    /**
+     * Mapper method to map values from Expense request to expense dto
+     * @param expenseRequest
+     * @return ExpenseDto
+     * */
+    private ExpenseDTO mapToExpenseDTO(@Valid ExpenseRequest expenseRequest) {
+        return modelMapper.map(expenseRequest,ExpenseDTO.class);
     }
 
 
@@ -84,7 +101,25 @@ public class ExpenseController {
      * @param expenseDTO
      * @return void
      * */
-    private ExpenseResponse mapToExpenseResponse(ExpenseDTO expenseDTO){
+    public ExpenseResponse mapToExpenseResponse(ExpenseDTO expenseDTO){
        return modelMapper.map(expenseDTO, ExpenseResponse.class);
+    }
+
+    /**
+     * It will update the single expense from database
+     * @param updateRequest
+     * @param expenseId
+     * @return ExpenseResponse
+     * */
+    //    update expense
+    @PutMapping("/expenses/{expenseId}")
+    public ExpenseResponse updateExpenseDetails(@RequestBody ExpenseRequest updateRequest, @PathVariable String expenseId){
+        log.info("API PUT /expenses/{} request body {}",expenseId,updateRequest);
+        ExpenseDTO updatedExpenseDTO=mapToExpenseDTO(updateRequest);
+//       call the service method to update details
+        updatedExpenseDTO=expenseService.updateExpenseDetails(updatedExpenseDTO,expenseId);
+        log.info("Printing the updated expense details {}",updatedExpenseDTO);
+
+        return mapToExpenseResponse(updatedExpenseDTO);
     }
 }
