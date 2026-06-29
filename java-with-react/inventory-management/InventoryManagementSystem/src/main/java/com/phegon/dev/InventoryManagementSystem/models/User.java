@@ -47,4 +47,18 @@ public class User {
 
     @Column(name = "created_at")
     private final LocalDateTime createdAt = LocalDateTime.now();
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", role=" + role +
+                ", transactions=" + transactions +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
