@@ -1,3 +1,16 @@
+/*
+ * Problem: Two Sum
+ * Given an array of integers and a target, return the indices
+ * of the two numbers that add up to the target.
+ * Exactly one solution is guaranteed.
+ *
+ * Input:  int[] nums = {2, 7, 11, 15}, int target = 9
+ * Output: [0, 1]  → nums[0] + nums[1] = 2 + 7 = 9
+ *
+ * Approach: Brute force — two nested loops, check every pair
+ * Time complexity: O(n²)
+ */
+
 package array_basics;
 
 import java.util.Arrays;
