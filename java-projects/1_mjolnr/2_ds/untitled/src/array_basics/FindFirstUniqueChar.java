@@ -43,11 +43,22 @@ public class FindFirstUniqueChar {
                 frequency.put(ch, 1);
             }
         }
+        /// //////////////////////////////////////
         // short form - getOrDefault is just a HashMap method that saves you a manual null-check. Its signature:
         // Count the frequency of each character
         // for (char ch : str.toCharArray()) {
         //   frequency.put(ch, frequency.getOrDefault(ch, 0) + 1);
         //}
+        /// ////////////////////////////////////////
+
+        /// /////////////////////////////////////
+        // using normal for loop
+        //        for (int i = 0; i < str.length(); i++) {
+        //            char ch = str.charAt(i);
+        //            frequency.put(ch, frequency.getOrDefault(ch, 0) + 1);
+        //        }
+        /// ///////////////////////////////////
+
 
         // At this point, "frequency" knows the count of every character.
         // Example for "aab": {a=2, b=1}
