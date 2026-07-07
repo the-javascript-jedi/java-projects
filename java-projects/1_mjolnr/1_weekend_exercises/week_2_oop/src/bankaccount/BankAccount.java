@@ -28,8 +28,16 @@ package bankaccount;
 public class BankAccount {
 
     // Fields — the data every BankAccount object will hold
-    String owner;
-    double balance;
+    private String owner;
+    private double balance;
+
+    public String getOwner(){
+        return owner;
+    }
+
+    public double getBalance(){
+        return balance;
+    }
 
     // Constructor — runs when you create a new BankAccount object
     // "this.owner" refers to the field, "owner" (right side) refers to the parameter
