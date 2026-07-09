@@ -31,7 +31,4 @@ public String getName(){
     public void sleep(){
         System.out.println(getName() +" is sleeping");
     }
-
-
-
 }

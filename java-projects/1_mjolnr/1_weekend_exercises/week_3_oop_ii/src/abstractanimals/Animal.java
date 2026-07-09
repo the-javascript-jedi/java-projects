@@ -24,4 +24,3 @@ public abstract class Animal {
     // This is what forces Cat and Dog to each define their own makeSound().
     public abstract void makeSound();
 }
-

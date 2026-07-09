@@ -12,4 +12,3 @@ public class Main {
         duck.swim(); // prints: Donald Duck is swimming
     }
 }
-
