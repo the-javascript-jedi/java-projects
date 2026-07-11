@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class ArrayListDemo {
 
     public static void main(String args[]){
+
         // Create an ArrayList<String> of student names
         ArrayList<String> students=new ArrayList<>();
 
@@ -46,3 +47,18 @@ public class ArrayListDemo {
         System.out.println("\nTotal students: " + students.size());
     }
 }
+
+// O/P
+//Student List:
+//        [Alice, Bob, Charlie, David, Emma]
+//
+//        After removing Charlie:
+//        [Alice, Bob, David, Emma]
+//
+//        Students with index:
+//        0:Alice
+//1:Bob
+//2:David
+//3:Emma
+//
+//        Total students: 4

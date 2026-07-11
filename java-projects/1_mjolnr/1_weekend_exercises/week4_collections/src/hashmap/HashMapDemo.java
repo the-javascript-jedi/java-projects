@@ -54,3 +54,20 @@ public class HashMapDemo {
         System.out.println("\nContains Emma? " + students.containsKey("Emma"));
     }
 }
+// O/P
+//Student Scores:
+//        {Bob=88, Alice=95, Charlie=92, David=85, Emma=90}
+//
+//        Alice's score: 95
+//        Alice's updated score: 97
+//
+//        After removing David:
+//        {Bob=88, Alice=97, Charlie=92, Emma=90}
+//
+//        Student Scores:
+//        Bob: 88
+//        Alice: 97
+//        Charlie: 92
+//        Emma: 90
+//
+//        Contains Emma? true
