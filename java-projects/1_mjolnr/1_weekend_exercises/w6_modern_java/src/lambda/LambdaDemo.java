@@ -1,3 +1,25 @@
+/*
+ * Topic: Lambdas and Functional Interfaces
+ * Lambdas are shorthand functions — same as JS arrow functions.
+ * Java has 4 built-in functional interfaces, each with one fixed method:
+ *
+ * Predicate<T>     — takes T, returns boolean   → .test()
+ * Function<T, R>   — takes T, returns R          → .apply()
+ * Consumer<T>      — takes T, returns nothing    → .accept()
+ * Supplier<T>      — takes nothing, returns T    → .get()
+ *
+ * Examples:
+ * Predicate<Integer> isEven = n -> n % 2 == 0;   isEven.test(10) → true
+ * Function<String, String> upper = s -> s.toUpperCase();  upper.apply("alice") → "ALICE"
+ * Consumer<String> greet = s -> System.out.println("Hello, " + s + "!");
+ * Supplier<String> name = () -> "Unknown";   name.get() → "Unknown"
+ *
+ * Output:
+ * Is 10 even? true
+ * ALICE
+ * Hello, Alice!
+ * Default name: Unknown
+ */
 package lambda;
 
 import java.util.function.Predicate;
