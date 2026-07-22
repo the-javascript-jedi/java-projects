@@ -21,5 +21,8 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 <!--        added student class so Hibernate knows about it-->
         <mapping class="com.learning.Student"/>
+
+        <mapping class="com.courses.Courses"/>
+
     </session-factory>
 </hibernate-configuration>
