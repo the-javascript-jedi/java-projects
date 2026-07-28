@@ -1,4 +1,4 @@
-package com.learning.student_api;
+package com.learning.student_api.student;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
