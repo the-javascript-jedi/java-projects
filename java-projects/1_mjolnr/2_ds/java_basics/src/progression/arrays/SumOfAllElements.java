@@ -17,3 +17,6 @@ public class SumOfAllElements {
         System.out.println("SumOfAllElements - "+sum.sumOfAllElements(nums));
     }
 }
+
+
+
