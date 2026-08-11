@@ -21,6 +21,7 @@ public class StudentService {
     }
 
     // GET all students
+    // SQL: SELECT s.id, s.name, s.age, s.grade FROM students s
     public List<StudentResponse> getAllStudents() {
         return studentRepository.findAll()
                 .stream()
@@ -29,6 +30,7 @@ public class StudentService {
     }
 
     // GET student by id
+    // SQL: SELECT s.id, s.name, s.age, s.grade FROM students s WHERE s.id = ?
     public StudentResponse getStudentById(int id) {
         Student student = studentRepository.findById(id).orElse(null);
         if (student == null) return null;
@@ -38,20 +40,26 @@ public class StudentService {
     // CREATE new student
     public StudentResponse createStudent(CreateStudentRequest request) {
         Student student = new Student(request.getName(), request.getAge(), request.getGrade());
+        // SQL: INSERT INTO students (name, age, grade) VALUES (?, ?, ?)
         return toDTO(studentRepository.save(student));
     }
 
     // UPDATE existing student
     public StudentResponse updateStudent(int id, CreateStudentRequest request) {
+        // SQL: SELECT s.id, s.name, s.age, s.grade FROM students s WHERE s.id = ?
         Student existing = studentRepository.findById(id).orElse(null);
         if (existing == null) return null;
         existing.setName(request.getName());
         existing.setAge(request.getAge());
         existing.setGrade(request.getGrade());
+        // SQL: UPDATE students SET name = ?, age = ?, grade = ? WHERE id = ?
+        // (save() on an already-persisted entity triggers an UPDATE, not an INSERT)
         return toDTO(studentRepository.save(existing));
     }
 
     // DELETE student
+    // SQL: DELETE FROM students WHERE id = ?
+    // (findById is also called first internally by deleteById to check existence)
     public void deleteStudent(int id) {
         studentRepository.deleteById(id);
     }
