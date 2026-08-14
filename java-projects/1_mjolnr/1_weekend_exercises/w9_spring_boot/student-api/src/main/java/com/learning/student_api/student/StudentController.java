@@ -2,6 +2,7 @@ package com.learning.student_api.student;
 
 import com.learning.student_api.dto.CreateStudentRequest;
 import com.learning.student_api.dto.StudentResponse;
+import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +28,17 @@ public class StudentController {
     }
 
     // POST /students
+//    @Valid annotates the parameter it's attached to — @RequestBody
     @PostMapping
-    public StudentResponse createStudent(@RequestBody CreateStudentRequest request) {
+    public StudentResponse createStudent(@Valid @RequestBody CreateStudentRequest request) {
         return studentService.createStudent(request);
     }
 
     // PUT /students/1
+//    @Valid annotates the parameter it's attached to — @RequestBody
+//    only validate the request body — the id from the URL doesn't need @Valid.
     @PutMapping("/{id}")
-    public StudentResponse updateStudent(@PathVariable int id, @RequestBody CreateStudentRequest request) {
+    public StudentResponse updateStudent(@PathVariable int id,@Valid @RequestBody CreateStudentRequest request) {
         return studentService.updateStudent(id, request);
     }
 
