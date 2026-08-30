@@ -2,8 +2,10 @@ package com.learning.student_api.student;
 
 import com.learning.student_api.dto.CreateStudentRequest;
 import com.learning.student_api.dto.StudentResponse;
-import jakarta.validation.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,85 +17,40 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    // GET /students
+    // GET /students — 200 OK
     @GetMapping
-    public List<StudentResponse> getAllStudents() {
-        return studentService.getAllStudents();
+    public ResponseEntity<List<StudentResponse>> getAllStudents() {
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
 
-    // GET /students/1
+    // GET /students/1 — 200 OK or 404 Not Found
     @GetMapping("/{id}")
-    public StudentResponse getStudentById(@PathVariable int id) {
-        return studentService.getStudentById(id);
+    public ResponseEntity<StudentResponse> getStudentById(@PathVariable int id) {
+        StudentResponse student = studentService.getStudentById(id);
+        if (student == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(student);
     }
 
-    // POST /students
-//    @Valid annotates the parameter it's attached to — @RequestBody
+    // POST /students — 201 Created
     @PostMapping
-    public StudentResponse createStudent(@Valid @RequestBody CreateStudentRequest request) {
-        return studentService.createStudent(request);
+    public ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody CreateStudentRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(studentService.createStudent(request));
     }
 
-    // PUT /students/1
-//    @Valid annotates the parameter it's attached to — @RequestBody
-//    only validate the request body — the id from the URL doesn't need @Valid.
+    // PUT /students/1 — 200 OK or 404 Not Found
     @PutMapping("/{id}")
-    public StudentResponse updateStudent(@PathVariable int id,@Valid @RequestBody CreateStudentRequest request) {
-        return studentService.updateStudent(id, request);
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable int id, @Valid @RequestBody CreateStudentRequest request) {
+        StudentResponse updated = studentService.updateStudent(id, request);
+        if (updated == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(updated);
     }
 
-    // DELETE /students/1
+    // DELETE /students/1 — 204 No Content
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable int id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable int id) {
         studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
     }
 }
-
-// controller without DTOs
-//package com.learning.student_api.student;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController  // marks this as a REST API controller
-//@RequestMapping("/students")  // all endpoints start with /students
-//public class StudentController {
-//
-//    @Autowired
-//    private StudentService studentService;
-//
-//    // GET /students — returns all students
-//    @GetMapping
-//    public List<Student> getAllStudents() {
-//        return studentService.getAllStudents();
-//    }
-//
-//    // GET /students/1 — returns one student by id
-//    @GetMapping("/{id}")
-//    public Student getStudentById(@PathVariable int id) {
-//        return studentService.getStudentById(id);
-//    }
-//
-//    // POST /students — creates a new student
-//    @PostMapping
-//    public Student createStudent(@RequestBody Student student) {
-//        return studentService.createStudent(student);
-//    }
-//
-//    // PUT /students/1 — updates existing student
-//    @PutMapping("/{id}")
-//    public Student updateStudent(@PathVariable int id, @RequestBody Student student) {
-//        return studentService.updateStudent(id, student);
-//    }
-//
-//    // DELETE /students/1 — deletes a student
-//    @DeleteMapping("/{id}")
-//    public void deleteStudent(@PathVariable int id) {
-//        studentService.deleteStudent(id);
-//    }
-//}
-
 
 
