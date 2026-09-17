@@ -1,0 +1,57 @@
+<section class="dashboard">
+  <div class="page-heading">
+    <div>
+      <h1>My Tasks</h1>
+      <p>Keep track of what needs your attention.</p>
+    </div>
+    <hr />
+  </div>
+  <div class="filters">
+    <label class="search-field">
+      <span>🔍</span>
+      <input
+        type="search"
+        placeholder="Search Tasks..."
+        [value]="searchTerm()"
+        (input)="updateSearch($event)"
+      />
+    </label>
+    <select
+      name=""
+      id=""
+      [value]="statusFilter()"
+      (change)="updateStatusFilter($event)"
+    >
+      <option value="All">All Statuses</option>
+      <option value="TODO">To do</option>
+      <option value="IN_PROGRESS">In progress</option>
+      <option value="DONE">Done</option>
+    </select>
+  </div>
+
+  <div class="task-list">
+    @for (task of filteredTasks(); track task.id) {
+      <a [routerLink]="['/tasks', task.id]" class="task-card">
+        <span class="checkbox" [class.checked]="task.status === 'DONE'">
+          {{ task.status === "DONE" ? "✓" : "" }}
+        </span>
+        <div class="task-content">
+          <div class="task-title-row">
+            <h2>{{ task.title }}</h2>
+            <span class="status" [class]="task.status.toLowerCase()">
+              {{ task.status.replace("_", " ") }}
+            </span>
+          </div>
+          <p>{{ task.description }}</p>
+          <span class="due-date">Due: {{ task.dueDate }}</span>
+        </div>
+        <span class="more-menu" aria-label="More task options">⋮</span>
+      </a>
+    } @empty {
+      <div class="empty-state">
+        <h2>No tasks found</h2>
+        <p>Try a different search or create a new task</p>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,6 @@
+<h1>Task Details</h1>
+<p>Task id: {{ taskId }}</p>
+
+<a routerLink="/tasks">← Back</a>
+
+<a [routerLink]="['/tasks', taskId, 'edit']"> Edit Task </a>
