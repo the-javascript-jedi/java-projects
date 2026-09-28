@@ -8,14 +8,33 @@ import {
 import { Store } from '@ngrx/store';
 import { initialTasks } from '../../../store/mocks/MOCK_TASKS';
 import { selectAllTasks } from '../../../store/tasks/tasks.selectors';
+import { FormsModule } from '@angular/forms';
+import { effect } from '@angular/core';
 
 @Component({
   selector: 'app-task-dashboard',
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './task-dashboard.component.html',
   styleUrl: './task-dashboard.component.scss',
 })
 export class TaskDashboardComponent {
+  searchTodo = signal('');
+  statusFilter = signal('ALL');
+
+  // onSearch(value: string) {
+  //   console.log('typed:', value);
+  //   this.searchTodo.set(value);
+  // }
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    console.log('typed:', value);
+    this.searchTodo.set(value);
+  }
+
+  updateStatusFilter(event: Event) {
+    console.log('event', (event.target as HTMLSelectElement).value);
+    this.statusFilter.set((event.target as HTMLSelectElement).value);
+  }
   private readonly store = inject(Store);
 
   ngOnInit(): void {
@@ -50,6 +69,6 @@ export class TaskDashboardComponent {
   //   },
   // ]);
 
-  //
+  // signals with selector
   readonly tasks = this.store.selectSignal(selectAllTasks);
 }

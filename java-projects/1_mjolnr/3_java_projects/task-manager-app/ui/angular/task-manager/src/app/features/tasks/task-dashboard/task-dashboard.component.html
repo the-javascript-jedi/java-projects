@@ -9,9 +9,19 @@
   <div class="filters">
     <label for="" class="search-field">
       <span>🔍</span>
-      <input type="search" placeholder="Search Tasks..." />
+      <input
+        type="search"
+        placeholder="Search Tasks..."
+        [ngModel]="searchTodo()"
+        (input)="onSearch($event)"
+      />
     </label>
-    <select name="" id="">
+    <select
+      name=""
+      id=""
+      [value]="statusFilter()"
+      (change)="updateStatusFilter($event)"
+    >
       <option value="ALL">All Statuses</option>
       <option value="TODO">To do</option>
       <option value="IN_PROGRESS">In progress</option>
