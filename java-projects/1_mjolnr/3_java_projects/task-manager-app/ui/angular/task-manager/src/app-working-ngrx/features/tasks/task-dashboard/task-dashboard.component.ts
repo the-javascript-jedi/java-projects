@@ -29,12 +29,16 @@ export class TaskDashboardComponent implements OnInit {
   updateStatusFilter(event: Event): void {
     const selected = event.target as HTMLSelectElement;
     this.store.dispatch(
-      TasksActions.setStatusFilter({ statusFilter: selected.value as StatusFilter }),
+      TasksActions.setStatusFilter({
+        statusFilter: selected.value as StatusFilter,
+      }),
     );
   }
 
   updateSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
-    this.store.dispatch(TasksActions.setSearchTerm({ searchTerm: input.value }));
+    this.store.dispatch(
+      TasksActions.setSearchTerm({ searchTerm: input.value }),
+    );
   }
 }
