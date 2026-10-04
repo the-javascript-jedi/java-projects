@@ -23,3 +23,22 @@ export const selectSearchFilter = createSelector(
   selectTaskState,
   (state) => state.searchFilter,
 );
+export const selectFilteredTasks = createSelector(
+  selectAllTasks,
+  selectSearchTerm,
+  selectSearchFilter,
+  (tasks, searchTerm, searchFilter) => {
+    console.log('tasks', tasks);
+    console.log('searchTerm', searchTerm);
+    console.log('searchFilter', searchFilter);
+    const search = searchTerm.trim().toLowerCase();
+    return tasks.filter((task) => {
+      const matchesSearch =
+        task.title.toLowerCase().includes(search) ||
+        task.description.toLowerCase().includes(search);
+      const matchesFilter =
+        searchFilter === 'All' || task.status === searchFilter;
+      return matchesSearch && matchesFilter;
+    });
+  },
+);

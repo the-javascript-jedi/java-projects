@@ -9,7 +9,7 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { tasksReducer } from '../app-working-ngrx/store/tasks/tasks.reducer';
+import { tasksReducer } from '../app/store/tasks/tasks.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
