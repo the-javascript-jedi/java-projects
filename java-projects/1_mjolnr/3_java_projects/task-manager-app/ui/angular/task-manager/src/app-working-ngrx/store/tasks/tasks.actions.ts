@@ -1,14 +1,22 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Task } from '../../core/models/task.model';
 import { StatusFilter } from './task.state';
 
-export const TasksActions = createActionGroup({
-  source: 'Tasks',
-  events: {
-    'Load Tasks': emptyProps(),
-    'Load Tasks Success': props<{ tasks: Task[] }>(),
-    'Load Tasks Failure': props<{ error: string }>(),
-    'Set Search Term': props<{ searchTerm: string }>(),
-    'Set Status Filter': props<{ statusFilter: StatusFilter }>(),
-  },
-});
+export const loadTasks = createAction('[Tasks] Load Tasks');
+export const loadTasksSuccess = createAction(
+  '[Tasks] Load Tasks Success',
+  props<{ tasks: Task[] }>(),
+);
+export const loadTasksFailure = createAction(
+  '[Tasks] Load Tasks Failure',
+  props<{ error: string }>(),
+);
+
+export const setSearchTerm = createAction(
+  '[Tasks] Set Search Term',
+  props<{ searchTerm: string }>(),
+);
+export const setSearchFilter = createAction(
+  '[Tasks] Set Search Filter',
+  props<{ searchFilter: StatusFilter }>(),
+);

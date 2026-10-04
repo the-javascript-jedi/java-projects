@@ -4,16 +4,16 @@ export type StatusFilter = 'All' | TaskStatus;
 
 export interface TaskState {
   tasks: Task[];
-  loading: boolean;
   error: string | null;
+  loading: boolean;
   searchTerm: string;
-  statusFilter: StatusFilter;
+  searchFilter: StatusFilter;
 }
 
 export const initialTaskState: TaskState = {
   tasks: [],
-  loading: false,
   error: null,
+  loading: false,
   searchTerm: '',
-  statusFilter: 'All',
+  searchFilter: 'All',
 };

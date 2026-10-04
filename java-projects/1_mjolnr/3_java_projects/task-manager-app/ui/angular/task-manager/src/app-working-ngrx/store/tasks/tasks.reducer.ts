@@ -1,12 +1,33 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialTaskState } from './task.state';
-import { TasksActions } from './tasks.actions';
+import { Task } from '../../core/models/task.model';
+import { initialTaskState, StatusFilter } from './task.state';
+import * as TaskActions from './tasks.actions';
 
 export const tasksReducer = createReducer(
   initialTaskState,
-  on(TasksActions.loadTasks, (state) => ({ ...state, loading: true, error: null })),
-  on(TasksActions.loadTasksSuccess, (state, { tasks }) => ({ ...state, tasks, loading: false })),
-  on(TasksActions.loadTasksFailure, (state, { error }) => ({ ...state, loading: false, error })),
-  on(TasksActions.setSearchTerm, (state, { searchTerm }) => ({ ...state, searchTerm })),
-  on(TasksActions.setStatusFilter, (state, { statusFilter }) => ({ ...state, statusFilter })),
+
+  on(TaskActions.loadTasks, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+  on(TaskActions.loadTasksSuccess, (state, { tasks }) => ({
+    ...state,
+    tasks: tasks,
+    loading: false,
+    error: null,
+  })),
+  on(TaskActions.loadTasksFailure, (state, { error }) => ({
+    ...state,
+    error: error,
+    loading: false,
+  })),
+  on(TaskActions.setSearchTerm, (state, { searchTerm }) => ({
+    ...state,
+    searchTerm,
+  })),
+  on(TaskActions.setSearchFilter, (state, { searchFilter }) => ({
+    ...state,
+    searchFilter,
+  })),
 );

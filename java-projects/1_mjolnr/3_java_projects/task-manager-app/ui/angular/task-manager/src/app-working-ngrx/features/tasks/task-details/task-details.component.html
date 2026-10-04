@@ -1,6 +1,33 @@
-<h1>Task Details</h1>
-<p>Task id: {{ taskId }}</p>
+<section class="details">
+  <a class="back-link" routerLink="/tasks">← Back to tasks</a>
 
-<a routerLink="/tasks">← Back</a>
+  @if (task(); as task) {
+    <article class="details-card">
+      <div class="title-row">
+        <h1>{{ task.title }}</h1>
+        <span class="status" [class]="task.status.toLowerCase()">
+          {{ task.status.replace("_", " ") }}
+        </span>
+      </div>
 
-<a [routerLink]="['/tasks', taskId, 'edit']"> Edit Task </a>
+      <dl>
+        <dt>Description</dt>
+        <dd>{{ task.description || "No description" }}</dd>
+
+        <dt>Due date</dt>
+        <dd>{{ task.dueDate | date: "mediumDate" }}</dd>
+      </dl>
+
+      <div class="actions">
+        <a class="button primary" [routerLink]="['/tasks', task.id, 'edit']">
+          Edit Task
+        </a>
+      </div>
+    </article>
+  } @else {
+    <div class="empty-state">
+      <h2>Task not found</h2>
+      <p>No task exists with id {{ taskId }}.</p>
+    </div>
+  }
+</section>

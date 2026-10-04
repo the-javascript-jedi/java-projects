@@ -7,13 +7,13 @@
     <hr />
   </div>
   <div class="filters">
-    <label class="search-field">
+    <label for="" class="search-field">
       <span>🔍</span>
       <input
         type="search"
         placeholder="Search Tasks..."
-        [value]="searchTerm()"
-        (input)="updateSearch($event)"
+        [ngModel]="searchTodo()"
+        (input)="onSearch($event)"
       />
     </label>
     <select
@@ -30,7 +30,7 @@
   </div>
 
   <div class="task-list">
-    @for (task of filteredTasks(); track task.id) {
+    @for (task of tasks(); track task.id) {
       <a [routerLink]="['/tasks', task.id]" class="task-card">
         <span class="checkbox" [class.checked]="task.status === 'DONE'">
           {{ task.status === "DONE" ? "✓" : "" }}
