@@ -42,3 +42,9 @@ export const selectFilteredTasks = createSelector(
     });
   },
 );
+
+export const selectTaskById = (id: number | string) => {
+  return createSelector(selectAllTasks, (tasks) => {
+    return tasks.find((task) => task.id == id);
+  });
+};
