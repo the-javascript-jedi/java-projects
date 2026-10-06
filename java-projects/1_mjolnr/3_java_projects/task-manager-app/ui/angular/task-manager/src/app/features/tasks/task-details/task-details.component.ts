@@ -2,10 +2,12 @@ import { Component, effect, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectTaskById } from '../../../store/tasks/tasks.selectors';
+import { JsonPipe, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-task-details',
-  imports: [],
+  imports: [JsonPipe, DatePipe, RouterLink],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss',
 })
