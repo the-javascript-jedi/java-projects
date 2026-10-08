@@ -30,4 +30,13 @@ export const tasksReducer = createReducer(
     ...state,
     searchFilter,
   })),
+  on(TaskActions.addTask, (state, { task }) => {
+    // No backend yet, so make the next id from the current tasks.
+    const nextId = Math.max(0, ...state.tasks.map((t) => t.id)) + 1;
+    return { ...state, tasks: [...state.tasks, { ...task, id: nextId }] };
+  }),
+  on(TaskActions.updateTask, (state, { task }) => ({
+    ...state,
+    tasks: state.tasks.map((t) => (t.id === task.id ? task : t)),
+  })),
 );

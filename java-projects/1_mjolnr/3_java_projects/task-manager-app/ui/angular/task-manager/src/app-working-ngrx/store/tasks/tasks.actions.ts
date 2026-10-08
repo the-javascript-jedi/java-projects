@@ -20,3 +20,12 @@ export const setSearchFilter = createAction(
   '[Tasks] Set Search Filter',
   props<{ searchFilter: StatusFilter }>(),
 );
+
+export const addTask = createAction(
+  '[Task Form] Add Task',
+  props<{ task: Omit<Task, 'id'> }>(),
+);
+export const updateTask = createAction(
+  '[Task Form] Update Task',
+  props<{ task: Task }>(),
+);

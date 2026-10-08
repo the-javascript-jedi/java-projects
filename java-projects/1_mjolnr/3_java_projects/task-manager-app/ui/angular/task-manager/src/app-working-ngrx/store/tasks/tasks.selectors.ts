@@ -35,7 +35,7 @@ export const selectFilteredTasks = createSelector(
     return tasks.filter((task) => {
       const matchesSearch =
         task.title.toLowerCase().includes(search) ||
-        task.description.toLowerCase().includes(search);
+        (task.description ?? '').toLowerCase().includes(search);
       const matchesFilter =
         searchFilter === 'All' || task.status === searchFilter;
       return matchesSearch && matchesFilter;
@@ -43,9 +43,8 @@ export const selectFilteredTasks = createSelector(
   },
 );
 
-// Selector factory: a function that returns a selector for one task id.
-// Usage: this.store.selectSignal(selectTaskById(2))
-export const selectTaskById = (id: number) =>
-  createSelector(selectAllTasks, (tasks) =>
-    tasks.find((task) => task.id === id),
-  );
+export const selectTaskById = (id: number | string) => {
+  return createSelector(selectAllTasks, (tasks) => {
+    return tasks.find((task) => task.id == id);
+  });
+};
