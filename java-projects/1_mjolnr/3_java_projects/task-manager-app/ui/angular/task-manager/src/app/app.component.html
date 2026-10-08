@@ -1,0 +1,12 @@
+<header class="app-header">
+  <a class="brand" routerLink="/tasks">TaskFlow</a>
+
+  <!-- routerLink changes the Angular route without a full page reload. -->
+  <a class="new-task-button" routerLink="/tasks/new"> + New Task </a>
+</header>
+
+<main class="app-content">
+  <!-- Angular renders TaskDashboard, TaskForm, or TaskDetails here,
+       depending on the current URL. -->
+  <router-outlet />
+</main>

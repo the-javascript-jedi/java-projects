@@ -1,0 +1,60 @@
+<section class="form-page">
+  <a class="back-link" [routerLink]="isEditMode ? ['/tasks', taskId] : ['/tasks']">
+    ← Back
+  </a>
+
+  @if (notFound()) {
+    <div class="empty-state">
+      <h2>Task not found</h2>
+      <p>No task exists with id {{ taskId }}.</p>
+    </div>
+  } @else {
+    <form class="form-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h1>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h1>
+
+      <label class="field">
+        <span>Title</span>
+        <input type="text" formControlName="title" placeholder="What needs doing?" />
+        @if (hasError('title')) {
+          <small class="error">
+            @if (form.controls.title.hasError('required')) { Title is required. }
+            @if (form.controls.title.hasError('maxlength')) { Max 100 characters. }
+          </small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Description</span>
+        <textarea rows="4" formControlName="description" placeholder="Optional details"></textarea>
+      </label>
+
+      <div class="row">
+        <label class="field">
+          <span>Due date</span>
+          <input type="date" formControlName="dueDate" />
+          @if (hasError('dueDate')) {
+            <small class="error">Due date is required.</small>
+          }
+        </label>
+
+        <label class="field">
+          <span>Status</span>
+          <select formControlName="status">
+            @for (s of statuses; track s.value) {
+              <option [value]="s.value">{{ s.label }}</option>
+            }
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <a class="button secondary" [routerLink]="isEditMode ? ['/tasks', taskId] : ['/tasks']">
+          Cancel
+        </a>
+        <button class="button primary" type="submit">
+          {{ isEditMode ? 'Save Changes' : 'Create Task' }}
+        </button>
+      </div>
+    </form>
+  }
+</section>
