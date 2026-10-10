@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ClaudeCodeEditorTabs">
+    <option name="activeSessionId" value="c12d734c-997a-46f5-8c5b-9389a6a21640" />
+    <option name="openSessionIds">
+      <list>
+        <option value="fdb352c3-769b-4692-921e-9c71b9b52150" />
+        <option value="c12d734c-997a-46f5-8c5b-9389a6a21640" />
+      </list>
+    </option>
+    <option name="sessionPaths">
+      <map>
+        <entry key="c12d734c-997a-46f5-8c5b-9389a6a21640" value="/sessions/280382e0-4872-4964-9430-679b62407792" />
+        <entry key="fdb352c3-769b-4692-921e-9c71b9b52150" value="/sessions/cd34a174-25d1-4e73-9e83-f3da79b99793" />
+      </map>
+    </option>
+    <option name="sessionTitles">
+      <map>
+        <entry key="c12d734c-997a-46f5-8c5b-9389a6a21640" value="#terminal can you see the errors in term9nal" />
+        <entry key="fdb352c3-769b-4692-921e-9c71b9b52150" value="where is the main.java clas to run this project?" />
+      </map>
+    </option>
+  </component>
+</project>
