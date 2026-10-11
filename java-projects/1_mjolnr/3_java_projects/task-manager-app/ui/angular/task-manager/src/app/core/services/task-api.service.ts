@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Task } from '../models/task.model';
 import { Observable } from 'rxjs';
 
+@Injectable({ providedIn: 'root' })
 export class TaskApiService {
   private readonly http = inject(HttpClient);
 

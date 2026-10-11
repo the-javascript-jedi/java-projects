@@ -10,6 +10,7 @@ import com.learning.task_manager.task.TaskStatus;
 public class TaskResponse {
     private int id;
     private String title;
+    private String description;
     private TaskStatus status;
     private String dueDate;
 
@@ -19,9 +20,10 @@ public class TaskResponse {
 
     // Main constructor used to build a fully-populated response object,
     // e.g. `new TaskResponse(task.getId(), task.getTitle(), ...)`.
-    public TaskResponse(int id, String title, TaskStatus status, String dueDate){
+    public TaskResponse(int id, String title, String description, TaskStatus status, String dueDate){
         this.id=id;
         this.title=title;
+        this.description=description;
         this.status=status;
         this.dueDate=dueDate;
     }
@@ -36,6 +38,10 @@ public class TaskResponse {
 
     public String getTitle(){
         return this.title;
+    }
+
+    public String getDescription(){
+        return this.description;
     }
 
     public TaskStatus getStatus(){
