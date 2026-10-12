@@ -7,3 +7,6 @@ export interface Task {
   dueDate: string;
   status: TaskStatus;
 }
+
+// Request body for POST/PUT — matches CreateTaskRequest in the Java backend (no id).
+export type TaskInput = Omit<Task, 'id'>;

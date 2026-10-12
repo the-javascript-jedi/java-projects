@@ -70,6 +70,30 @@ dl {
       background: #1d4ed8;
     }
   }
+
+  &.danger {
+    border: none;
+    background: #dc2626;
+    color: #ffffff;
+    font-size: inherit;
+    cursor: pointer;
+
+    &:hover {
+      background: #b91c1c;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.error {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .status {

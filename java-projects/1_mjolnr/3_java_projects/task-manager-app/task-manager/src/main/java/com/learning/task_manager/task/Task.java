@@ -28,10 +28,11 @@ public class Task {
     //Default constructor — Hibernate requires it
     public Task() {}
 
-    public Task(String title,String description, String dueDate){
+    public Task(String title,String description, String dueDate, TaskStatus status){
         this.title=title;
         this.description=description;
         this.dueDate=dueDate;
+        this.status=status;
     }
 
     public int getId(){

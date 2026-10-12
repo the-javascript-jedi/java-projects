@@ -12,6 +12,10 @@
     <form class="form-card" [formGroup]="form" (ngSubmit)="onSubmit()">
       <h1>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h1>
 
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
       <label class="field">
         <span>Title</span>
         <input type="text" formControlName="title" placeholder="What needs doing?" />
@@ -51,8 +55,8 @@
         <a class="button secondary" [routerLink]="isEditMode ? ['/tasks', taskId] : ['/tasks']">
           Cancel
         </a>
-        <button class="button primary" type="submit">
-          {{ isEditMode ? 'Save Changes' : 'Create Task' }}
+        <button class="button primary" type="submit" [disabled]="loading()">
+          {{ loading() ? 'Saving...' : isEditMode ? 'Save Changes' : 'Create Task' }}
         </button>
       </div>
     </form>

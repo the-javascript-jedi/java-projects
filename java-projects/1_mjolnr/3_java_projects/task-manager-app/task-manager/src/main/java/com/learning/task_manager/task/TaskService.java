@@ -58,7 +58,7 @@ public class TaskService {
     // an INSERT since it has no id yet), then convert the saved entity back to a DTO.
     // SQL: INSERT INTO tasks (title, description, status, dueDate) VALUES (?, ?, ?, ?);
     public TaskResponse createTask(CreateTaskRequest request){
-        Task task = new Task(request.getTitle(), request.getDescription(), request.getDueDate());
+        Task task = new Task(request.getTitle(), request.getDescription(), request.getDueDate(),request.getStatus());
         return toDto(taskRepository.save(task));
     }
 

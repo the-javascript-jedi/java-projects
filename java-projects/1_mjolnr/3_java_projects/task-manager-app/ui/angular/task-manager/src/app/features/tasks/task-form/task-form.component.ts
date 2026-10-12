@@ -1,10 +1,18 @@
 import { Component, computed, effect, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TaskStatus } from '../../../core/models/task.model';
-import { selectTaskById } from '../../../store/tasks/tasks.selectors';
-import { addTask, updateTask } from '../../../store/tasks/tasks.actions';
+import {
+  selectError,
+  selectLoading,
+  selectTaskById,
+} from '../../../store/tasks/tasks.selectors';
+import {
+  addTask,
+  loadTask,
+  updateTask,
+} from '../../../store/tasks/tasks.actions';
 
 @Component({
   selector: 'app-task-form',
@@ -14,7 +22,6 @@ import { addTask, updateTask } from '../../../store/tasks/tasks.actions';
 })
 export class TaskFormComponent {
   private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
   private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder);
 
@@ -25,7 +32,12 @@ export class TaskFormComponent {
 
   // In create mode there's no task to look up; id -1 never matches, so this is undefined.
   readonly task = this.store.selectSignal(selectTaskById(this.taskId ?? -1));
-  readonly notFound = computed(() => this.isEditMode && !this.task());
+  readonly loading = this.store.selectSignal(selectLoading);
+  readonly error = this.store.selectSignal(selectError);
+  // Wait for the GET to finish before saying "not found".
+  readonly notFound = computed(
+    () => this.isEditMode && !this.loading() && !this.task(),
+  );
 
   readonly statuses: { value: TaskStatus; label: string }[] = [
     { value: 'TODO', label: 'To do' },
@@ -42,6 +54,11 @@ export class TaskFormComponent {
   });
 
   constructor() {
+    // Fetch from the API so /tasks/:id/edit also works after a page refresh.
+    if (this.taskId !== null) {
+      this.store.dispatch(loadTask({ id: this.taskId }));
+    }
+
     // Fill the form once the task is in the store. Use an effect (not a
     // one-time patch) because the task may arrive after this component is
     // created. The `pristine` check makes sure the user's typing is never
@@ -68,12 +85,12 @@ export class TaskFormComponent {
 
     const values = this.form.getRawValue();
 
+    // No navigate here: navigateAfterSave$ in tasks.effects.ts does it once
+    // the server confirms. On failure we stay on the form and show the error.
     if (this.isEditMode && this.taskId !== null) {
       this.store.dispatch(updateTask({ task: { id: this.taskId, ...values } }));
-      this.router.navigate(['/tasks', this.taskId]);
     } else {
       this.store.dispatch(addTask({ task: values }));
-      this.router.navigate(['/tasks']);
     }
   }
 }
