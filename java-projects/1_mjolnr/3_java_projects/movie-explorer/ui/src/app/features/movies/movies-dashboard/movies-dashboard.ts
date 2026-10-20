@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { mockMovies } from '../../../mock_data/mock_movies';
+import { Movie } from '../../../core/models/movies';
 
 @Component({
   imports: [],
@@ -6,4 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './movies-dashboard.scss',
   templateUrl: './movies-dashboard.html',
 })
-export class MoviesDashboard {}
+export class MoviesDashboard {
+  movies = signal<Movie[]>(mockMovies);
+
+  constructor() {
+    console.log('movies', this.movies());
+  }
+}

@@ -1,23 +1,27 @@
 <p>movies-dashboard works!</p>
 <div>
   <div class="search">
-    <input type="text" name="" id="" />
+    <input class="search-box" type="text" name="" id="" placeholder="Search Movies" />
   </div>
   <div class="movies-container">
     <div class="info-banner">Trending this week → becomes "Results for …" after typing</div>
     <div class="movies-list">
-      <div class="movies-card">
-        <div class="">
-          <img src="" alt="" />
-          <div>
-            <div>
-              <span class="year">2024</span>
-              <span class="rating">★7.8</span>
+      @for (movie of movies(); track movie.id) {
+        <div class="movies-card">
+          <div class="">
+            <img class="movie-poster" [src]="movie.posterUrl" alt="" />
+            <div class="movie-rating-details">
+              <div>
+                <span class="year">{{ movie.year }}</span>
+                <span class="rating">★ {{ movie.rating }}</span>
+              </div>
+              <div>+</div>
             </div>
-            <div>+</div>
           </div>
         </div>
-      </div>
+      } @empty {
+        <div>No data found</div>
+      }
     </div>
   </div>
 </div>
