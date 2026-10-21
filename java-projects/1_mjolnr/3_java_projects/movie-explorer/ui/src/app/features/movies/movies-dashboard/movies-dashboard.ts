@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { mockMovies } from '../../../mock_data/mock_movies';
 import { Movie } from '../../../core/models/movies';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-movies-dashboard',
   styleUrl: './movies-dashboard.scss',
   templateUrl: './movies-dashboard.html',
