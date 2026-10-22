@@ -1,16 +1,24 @@
 <p>movies-dashboard works!</p>
 <div>
   <div class="search">
-    <input class="search-box" type="text" name="" id="" placeholder="Search Movies" />
+    <input
+      class="search-box"
+      type="search"
+      placeholder="Search Movies"
+      aria-label="Search movies by title"
+      [value]="searchQuery()"
+      (input)="searchQuery.set($any($event.target).value)"
+    />
   </div>
   <div class="movies-container">
     <div class="info-banner">Trending this week → becomes "Results for …" after typing</div>
     <div class="movies-list">
-      @for (movie of movies(); track movie.id) {
+      @for (movie of filteredMovies(); track movie.id) {
         <a [routerLink]="['/movie', movie.id]">
           <div class="movies-card">
             <div class="">
-              <img class="movie-poster" [src]="movie.posterUrl" alt="" />
+              <img class="movie-poster" [src]="movie.posterUrl" [alt]="movie.title" />
+              <div class="movie-title">{{ movie.title }}</div>
               <div class="movie-rating-details">
                 <div>
                   <span class="year">{{ movie.year }}</span>
