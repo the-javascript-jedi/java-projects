@@ -32,7 +32,7 @@ public class TaskService {
     // Unlike JS where you might just `res.json(dbRow)`, Java has no implicit conversion between
     // two different classes, so toDto() manually copies the fields we want to expose over the wire.
     private TaskResponse toDto(Task task){
-        return new TaskResponse(task.getId(),task.getTitle(),task.getStatus(),task.getDueDate());
+        return new TaskResponse(task.getId(),task.getTitle(),task.getDescription(),task.getStatus(),task.getDueDate());
     }
 
     // Fetch every Task row, then map() each one through toDto(), same idea as
@@ -58,7 +58,7 @@ public class TaskService {
     // an INSERT since it has no id yet), then convert the saved entity back to a DTO.
     // SQL: INSERT INTO tasks (title, description, status, dueDate) VALUES (?, ?, ?, ?);
     public TaskResponse createTask(CreateTaskRequest request){
-        Task task = new Task(request.getTitle(), request.getDescription(), request.getDueDate());
+        Task task = new Task(request.getTitle(), request.getDescription(), request.getDueDate(),request.getStatus());
         return toDto(taskRepository.save(task));
     }
 

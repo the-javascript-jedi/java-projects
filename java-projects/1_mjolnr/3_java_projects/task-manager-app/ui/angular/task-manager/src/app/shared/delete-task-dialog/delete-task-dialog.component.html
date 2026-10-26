@@ -1,1 +1,22 @@
-<p>delete-task-dialog works!</p>
+<div class="backdrop" (click)="cancelled.emit()">
+  <div
+    class="dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="delete-dialog-title"
+    (click)="$event.stopPropagation()"
+  >
+    <h2 id="delete-dialog-title">Delete task?</h2>
+    <p>
+      "<strong>{{ taskTitle() }}</strong>" will be permanently deleted.
+    </p>
+    <div class="actions">
+      <button type="button" class="button secondary" (click)="cancelled.emit()">
+        Cancel
+      </button>
+      <button type="button" class="button danger" (click)="confirmed.emit()">
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

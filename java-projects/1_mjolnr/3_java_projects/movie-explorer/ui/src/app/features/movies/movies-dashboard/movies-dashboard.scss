@@ -1,0 +1,25 @@
+.search-box {
+  width: 100%;
+  border-radius: 25px;
+  border: 1;
+}
+
+.movie-poster {
+  width: 150px;
+  height: 150px;
+}
+
+.info-banner {
+  margin-top: 20px;
+}
+.movies-card {
+  display: inline-block;
+  margin-right: 20px;
+}
+.movie-rating-details {
+  display: flex;
+  justify-content: space-between;
+}
+.rating {
+  margin-left: 15px;
+}

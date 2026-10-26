@@ -28,17 +28,18 @@ export const selectFilteredTasks = createSelector(
   selectSearchTerm,
   selectSearchFilter,
   (tasks, searchTerm, searchFilter) => {
-    console.log('tasks', tasks);
-    console.log('searchTerm', searchTerm);
-    console.log('searchFilter', searchFilter);
     const search = searchTerm.trim().toLowerCase();
+
     return tasks.filter((task) => {
+      const hasStatus = task.status != null;
+
+      // `?? ''`: the backend can return null for description.
       const matchesSearch =
-        task.title.toLowerCase().includes(search) ||
-        task.description.toLowerCase().includes(search);
+        (task.title ?? '').toLowerCase().includes(search) ||
+        (task.description ?? '').toLowerCase().includes(search);
       const matchesFilter =
         searchFilter === 'All' || task.status === searchFilter;
-      return matchesSearch && matchesFilter;
+      return matchesSearch && matchesFilter && hasStatus;
     });
   },
 );

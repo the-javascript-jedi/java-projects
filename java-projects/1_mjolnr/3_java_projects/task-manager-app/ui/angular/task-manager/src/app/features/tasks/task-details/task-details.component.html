@@ -1,9 +1,11 @@
 <section class="details">
   <a class="back-link" routerLink="/tasks">← Back to tasks</a>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
   @if (task(); as task) {
-    <!-- <pre>
-        {{ task | json }}
-    </pre> -->
     <article class="details-card">
       <div class="title-row">
         <h1>{{ task.title }}</h1>
@@ -22,8 +24,28 @@
         <a class="button primary" [routerLink]="['/tasks', task.id, 'edit']">
           Edit Task
         </a>
+        <button
+          type="button"
+          class="button danger"
+          [disabled]="loading()"
+          (click)="showDeleteDialog.set(true)"
+        >
+          Delete Task
+        </button>
       </div>
     </article>
+
+    @if (showDeleteDialog()) {
+      <app-delete-task-dialog
+        [taskTitle]="task.title"
+        (confirmed)="confirmDelete()"
+        (cancelled)="showDeleteDialog.set(false)"
+      />
+    }
+  } @else if (loading()) {
+    <div class="empty-state">
+      <p>Loading task...</p>
+    </div>
   } @else {
     <div class="empty-state">
       <h2>Task not found</h2>
