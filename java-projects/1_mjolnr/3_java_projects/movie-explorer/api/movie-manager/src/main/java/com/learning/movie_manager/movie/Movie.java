@@ -50,9 +50,13 @@ public class Movie {
     // matches the table. @Column is only needed to override something: name, length, nullable, etc.
     private String director;
 
-        public Movie(){}
+    // No-arg constructor: REQUIRED by JPA/Hibernate. It creates an empty Movie with "new Movie()" and then
+    // fills the fields from the DB row. Jackson also uses it when turning request JSON into a Movie.
+    public Movie(){}
 
-        public Movie(String title,Integer releaseYear,BigDecimal rating, String posterUrl, String overview , Integer runtimeMinutes, String director){
+    // Convenience constructor for creating a new Movie in our own code (e.g. seeding data, tests).
+    // It has no id parameter because the DB generates the id (IDENTITY) when the movie is saved.
+    public Movie(String title,Integer releaseYear,BigDecimal rating, String posterUrl, String overview , Integer runtimeMinutes, String director){
             this.title=title;
             this.releaseYear=releaseYear;
             this.rating=rating;
@@ -60,10 +64,42 @@ public class Movie {
             this.overview=overview;
             this.runtimeMinutes=runtimeMinutes;
             this.director=director;
-
         }
 
-        @Override
+    // Getters and setters: the fields are private (encapsulation), so other code reads/writes them through these.
+    // - Jackson (Spring's JSON library) calls getX() to turn a Movie into JSON for API responses,
+    //   and setX() to fill a Movie from JSON in request bodies. Without getters, the JSON would be empty/fail.
+    // - Think of it like a JS object whose properties are only reachable through get/set functions.
+    // - Naming matters: getReleaseYear() -> JSON key "releaseYear" (Jackson derives it from the method name).
+    // - id has a setter too, but normally you let the DB generate it and don't set it yourself.
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public Integer getReleaseYear() { return releaseYear; }
+    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
+
+    public BigDecimal getRating() { return rating; }
+    public void setRating(BigDecimal rating) { this.rating = rating; }
+
+    public String getPosterUrl() { return posterUrl; }
+    public void setPosterUrl(String posterUrl) { this.posterUrl = posterUrl; }
+
+    public String getOverview() { return overview; }
+    public void setOverview(String overview) { this.overview = overview; }
+
+    public Integer getRuntimeMinutes() { return runtimeMinutes; }
+    public void setRuntimeMinutes(Integer runtimeMinutes) { this.runtimeMinutes = runtimeMinutes; }
+
+    public String getDirector() { return director; }
+    public void setDirector(String director) { this.director = director; }
+
+    // toString: human-readable text for logging/debugging (e.g. System.out.println(movie)).
+    // Without it, Java prints something like "Movie@1a2b3c". Like JSON.stringify(obj) for quick inspection.
+    // @Override: compiler checks we really are overriding Object.toString() (catches typos in the name).
+    @Override
     public String toString() {
         return "Task{id=" + id + ", title=" + title + ", releaseYear=" + releaseYear + ", rating=" + rating +  ", posterUrl=" + posterUrl + ", overview=" + overview +", overview=" + overview + ", runtimeMinutes=" + runtimeMinutes + ", director=" + director + "}";
     }
