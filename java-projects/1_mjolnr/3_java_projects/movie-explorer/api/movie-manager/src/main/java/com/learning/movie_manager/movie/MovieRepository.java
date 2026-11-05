@@ -1,7 +1,7 @@
 package com.learning.movie_manager.movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import java.util.List;
+// import java.util.List;
 
 // REPOSITORY LAYER = the only layer that talks to the database.
 // @Repository = marks this as a data-access component so Spring manages it.
