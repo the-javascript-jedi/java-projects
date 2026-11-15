@@ -1,13 +1,13 @@
-package com.embarkx.FirstSpring;
+package com.ecommerce.sb_ecom;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FirstSpringApplication {
+public class SbEcomApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstSpringApplication.class, args);
+		SpringApplication.run(SbEcomApplication.class, args);
 	}
 
 }

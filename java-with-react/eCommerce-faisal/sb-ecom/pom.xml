@@ -8,8 +8,8 @@
 		<version>4.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.embarkx</groupId>
-	<artifactId>FirstSpring</artifactId>
+	<groupId>com.ecommerce</groupId>
+	<artifactId>sb-ecom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>

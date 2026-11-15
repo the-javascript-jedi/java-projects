@@ -1,10 +1,10 @@
-package com.embarkx.FirstSpring;
+package com.ecommerce.sb_ecom;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FirstSpringApplicationTests {
+class SbEcomApplicationTests {
 
 	@Test
 	void contextLoads() {
