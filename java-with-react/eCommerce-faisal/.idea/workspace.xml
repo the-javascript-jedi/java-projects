@@ -49,17 +49,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FirstSpringApplication.executor": "Run",
-    "Application.SbEcomApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "pc-master",
-    "last_opened_file_path": "H:/Nithin Samuel/Learning/nithin-repos/java-projects/java-with-react/eCommerce-faisal",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FirstSpringApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SbEcomApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;pc-master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;H:/Nithin Samuel/Learning/nithin-repos/java-projects/java-with-react/eCommerce-faisal&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.SbEcomApplication">
     <configuration name="FirstSpringApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.embarkx.FirstSpring.FirstSpringApplication" />

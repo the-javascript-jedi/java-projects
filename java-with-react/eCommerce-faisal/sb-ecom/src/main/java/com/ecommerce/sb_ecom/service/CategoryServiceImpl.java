@@ -5,7 +5,10 @@ import com.ecommerce.sb_ecom.model.Category;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 // @Service registers this class as a Spring bean. Without it, Spring wouldn't know
 // this class exists and couldn't inject it into the controller (that was the
@@ -26,10 +29,11 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void createCategory(Category category) {
+    public String createCategory(Category category) {
         // nextId++ uses the current value, then increases it by 1 for next time.
         category.setCategoryId(nextId++);
         categories.add(category);
+        return "Category added Succesfully";
     }
 
     @Override
@@ -39,10 +43,8 @@ public class CategoryServiceImpl implements CategoryService{
         // findFirst() picks the first match. orElse(null) gives null if nothing matched
         // (c -> ... is an arrow function, same idea as in JS).
         // .equals() is used instead of == because categoryId is a Long object, not a primitive.
-        Category category=categories.stream().filter(c->c.getCategoryId().equals(categoryId)).findFirst().orElse(null);
-        if(category==null){
-            return "Category not Found!!";
-        }
+        Category category=categories.stream().filter(c->c.getCategoryId().equals(categoryId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found"));
+
         categories.remove(category);
 
         return "Category with "+categoryId+" deleted succesfully";

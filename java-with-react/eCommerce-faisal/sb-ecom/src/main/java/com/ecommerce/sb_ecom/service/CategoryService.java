@@ -10,7 +10,7 @@ public interface CategoryService {
 // Return every category.
 List<Category> getAllCategories();
 // Add a new category.
-void createCategory(Category category);
+String createCategory(Category category);
 // Delete a category by id and return a message saying what happened.
 String deleteCategory(Long categoryId);
 }
