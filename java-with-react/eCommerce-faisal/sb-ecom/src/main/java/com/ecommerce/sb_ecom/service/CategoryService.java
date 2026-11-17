@@ -13,4 +13,6 @@ List<Category> getAllCategories();
 String createCategory(Category category);
 // Delete a category by id and return a message saying what happened.
 String deleteCategory(Long categoryId);
+
+Category updateCategory(Category category, Long categoryId);
 }
