@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5548176e-d62f-497f-8974-87191dc7f45b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sb-ecom/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sb-ecom/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sb-ecom/src/main/java/com/ecommerce/sb_ecom/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/sb-ecom/src/main/java/com/ecommerce/sb_ecom/model/Category.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sb-ecom/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/sb-ecom/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
