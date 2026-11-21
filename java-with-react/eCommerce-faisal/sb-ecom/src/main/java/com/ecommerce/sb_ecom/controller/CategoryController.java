@@ -79,7 +79,7 @@ public class CategoryController {
         categoryService.updateCategory(category,categoryId);
         // Reached only if the update worked. We send back a message plus 200 OK
         // (the generic type is String because the body is a String, matching ResponseEntity<String>).
-        return new ResponseEntity<>("Category with categoryId " + categoryId + "is updated", HttpStatus.OK);
+        return new ResponseEntity<>("Category with categoryId " + categoryId + " is updated", HttpStatus.OK);
     }
 
 }

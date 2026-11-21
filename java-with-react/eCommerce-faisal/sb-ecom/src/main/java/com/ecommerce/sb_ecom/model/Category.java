@@ -10,6 +10,14 @@ import jakarta.persistence.Id;
 @Entity(name="categories")
 public class Category {
 
+    // No-arg (default) constructor: REQUIRED by JPA/Hibernate (and Jackson).
+    // Hibernate creates the object with `new Category()` and then fills in the fields
+    // from the DB row. Once we declare any other constructor (see the one below), Java
+    // no longer generates this one for free, so we must write it ourselves.
+    // Without it: "No default constructor for entity 'Category'".
+    public Category() {
+    }
+
     // @Id -> this field is the primary key of the table.
     @Id
     // @GeneratedValue -> the ID is generated automatically, so we don't set it ourselves.
