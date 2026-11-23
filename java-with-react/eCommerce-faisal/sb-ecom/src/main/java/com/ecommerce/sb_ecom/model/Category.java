@@ -11,8 +11,20 @@ import lombok.NoArgsConstructor;
 // Marks this class as a JPA entity: Hibernate maps it to a database table.
 // name="categories" is the entity name (used in JPQL) and, by default, the table name too.
 @Entity(name="categories")
+// ---- Lombok annotations: generate boilerplate at compile time (you won't see it in the file) ----
+// @Data = bundle of 4 things:
+//   1. getters for every field      -> getCategoryId(), getCategoryName()
+//   2. setters for every field      -> setCategoryId(..), setCategoryName(..)
+//      (the service uses setCategoryId() in updateCategory)
+//   3. toString()                   -> readable text of the object, handy for logging
+//   4. equals() and hashCode()      -> compare two Categories by their field values
+//   (Jackson also uses the getters/setters to turn this object to/from JSON.)
 @Data
+// @NoArgsConstructor -> generates `new Category()` with no parameters.
+// REQUIRED: JPA/Hibernate and Jackson both create the object empty first, then fill the fields in.
 @NoArgsConstructor
+// @AllArgsConstructor -> generates `new Category(categoryId, categoryName)` taking every field.
+// Convenient for creating objects quickly in code or tests.
 @AllArgsConstructor
 public class Category {
 

@@ -13,6 +13,6 @@ List<Category> getAllCategories();
 String createCategory(Category category);
 // Delete a category by id and return a message saying what happened.
 String deleteCategory(Long categoryId);
-
+// Update the category with this id using the data in `category`; returns the saved result.
 Category updateCategory(Category category, Long categoryId);
 }
