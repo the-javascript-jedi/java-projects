@@ -4,19 +4,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 // Marks this class as a JPA entity: Hibernate maps it to a database table.
 // name="categories" is the entity name (used in JPQL) and, by default, the table name too.
 @Entity(name="categories")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 
-    // No-arg (default) constructor: REQUIRED by JPA/Hibernate (and Jackson).
-    // Hibernate creates the object with `new Category()` and then fills in the fields
-    // from the DB row. Once we declare any other constructor (see the one below), Java
-    // no longer generates this one for free, so we must write it ourselves.
-    // Without it: "No default constructor for entity 'Category'".
-    public Category() {
-    }
+
 
     // @Id -> this field is the primary key of the table.
     @Id
@@ -35,27 +35,5 @@ public class Category {
 
     private String categoryName;   // plain column -> "category_name"
 
-    // Getters and setters: let Spring/Hibernate/Jackson read and write the fields
-    // (like property access on a JS object, but explicit in Java).
-    public Long getCategoryId() {
-        return categoryId;
-    }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    // Constructor to create a Category with both values in code.
-    public Category(Long categoryId, String categoryName) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-    }
 }
