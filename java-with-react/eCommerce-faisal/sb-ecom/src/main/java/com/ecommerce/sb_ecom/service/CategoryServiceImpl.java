@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.ecommerce.sb_ecom.repositories.CategoryRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,57 +20,64 @@ public class CategoryServiceImpl implements CategoryService{
 
     // Temporary in-memory "database". The data is lost when the app restarts.
     // Declared as List (interface), created as ArrayList (implementation).
-    private List<Category> categories=new ArrayList<>();
+//    private List<Category> categories=new ArrayList<>();
 
-    // Counter used to give each new category a unique id (1, 2, 3, ...).
-    private long nextId=1;
+    // final = must be set once in the constructor and can never be reassigned (so it can't be null later).
+    private final CategoryRepository categoryRepository;
+
+    // Spring sees the single constructor and automatically passes in the CategoryRepository bean.
+    // No @Autowired needed when there's only one constructor.
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public List<Category> getAllCategories() {
-        return categories;
+//        Tep db
+//        return categories;
+        return categoryRepository.findAll();
     }
 
     @Override
     public String createCategory(Category category) {
         // nextId++ uses the current value, then increases it by 1 for next time.
-        category.setCategoryId(nextId++);
-        categories.add(category);
+//        category.setCategoryId(nextId++);
+//        categories.add(category);
+        categoryRepository.save(category);
         return "Category added Succesfully";
     }
 
     @Override
     public String deleteCategory(Long categoryId) {
-        // Look through the list for the category whose id matches.
-        // stream().filter(...) is like array.filter() in JS, and
-        // findFirst() picks the first match. orElse(null) gives null if nothing matched
-        // (c -> ... is an arrow function, same idea as in JS).
-        // .equals() is used instead of == because categoryId is a Long object, not a primitive.
-        Category category=categories.stream().filter(c->c.getCategoryId().equals(categoryId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource not found"));
+        // Step 1: fetch just this one row by primary key (SELECT ... WHERE category_id = ?).
+        // findById returns an Optional (a box that may be empty).
+        // orElseThrow -> if empty, throw a 404 error; otherwise unwrap and give us the Category.
+        Category category=categoryRepository.findById(categoryId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource with "+categoryId+" not Found"));
 
-        categories.remove(category);
+        // Step 2: delete that row (DELETE FROM categories WHERE category_id = ?).
+        categoryRepository.delete(category);
 
+        // Step 3: return a success message to the controller (and then to the client).
         return "Category with "+categoryId+" deleted succesfully";
-        //        return "";
     }
 
     @Override
     public Category updateCategory(Category category, Long categoryId) {
-        // `category` is the new data from the request body; `categoryId` says which one to update.
-        // Optional<Category> is a box that either holds a Category or is empty
-        // (a safer alternative to returning null). findFirst() returns this box.
-        Optional<Category> optionalCategory=categories.stream().filter(c->c.getCategoryId().equals(categoryId)).findFirst();
+        // Step 1: check the category exists. findById returns an Optional (a box that may be empty).
+        // orElseThrow -> if empty, throw a 404 error; otherwise unwrap and give us the Category.
+        Category savedCategory= categoryRepository.findById(categoryId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Category with id " + categoryId + " not found"));
 
-        if(optionalCategory.isPresent()){
-            // .get() takes the Category out of the box (safe here because isPresent() was true).
-            Category existingCategory=optionalCategory.get();
-            // Copy the new name onto the object already in the list. Because the list holds
-            // references to objects, changing it here updates the stored category (no "save" needed).
-            existingCategory.setCategoryName(category.getCategoryName());
-            return existingCategory;
-        }else{
-           // No category has this id -> 404 NOT_FOUND is the standard status for an update on a missing resource.
-           // Throwing stops the method; Spring turns the exception into the HTTP error response.
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Category with id " + categoryId + " not found");
-        }
+        // Step 2: copy the id from the URL onto the request-body object.
+        // The JSON body usually has no id. save() INSERTS a new row when the id is null,
+        // and UPDATES the existing row when the id is set. So this line makes it an update.
+        category.setCategoryId(categoryId);
+
+        // Step 3: save() sees the id, runs an UPDATE, and returns the saved entity.
+        // NOTE: this replaces the whole row with the request body (like replaceOne in MongoDB),
+        // so any field the client leaves out would become null.
+        savedCategory=categoryRepository.save(category);
+
+        // Step 4: return the updated category (the controller sends it back as JSON).
+        return savedCategory;
     }
 }
